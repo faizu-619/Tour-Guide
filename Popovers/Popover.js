@@ -30,7 +30,11 @@
     
     var currentindex = 0;
     
-    var isScrolled = false;
+    var isScrolled = false;    
+    
+    var isBackDrop = false;
+    
+    var backDrop = '<div class="modal-backdrop" style="opacity:0.7;"></div>';
     
     Tour.prototype = {
         createPopup: function(index){
@@ -90,11 +94,12 @@
             $(window.document).on('click','div.popover a.tour-cancel',function(e){
                 e.preventDefault();
                 self.closePopup();
+                self.EnableBackDrop(false);
             });
             
             $(window.document).on('click','div.popover a.tour-end',function(e){
                 e.preventDefault();
-                ;
+                self.endTour();
             });
             
             $(window.document).on('click','div.popover a.tour-start',function(e){
@@ -121,12 +126,14 @@
                 
                 $(this.popovers[0]).popover('show');
                 currentindex = 0;
+                this.EnableBackDrop(true);
             }
             else{
                 $(this.popovers[startFrom]).popover('show');
                 currentindex = startFrom;
             }
             this.scrolling();
+            this.setElementFocus(currentindex);
             
             this.log();
             
@@ -136,11 +143,13 @@
             
             if(currentindex > -1 && currentindex < this.popovers.length){
                 $(this.popovers[currentindex]).popover('hide');
+                this.unsetElementFocus(currentindex);
             }
             
             return this;
         },
         endTour: function(){
+            this.EnableBackDrop(false);
             this.closePopup();
             currentindex = 0;
         },
@@ -166,13 +175,10 @@
                 
                 if(!this.checkScroll($(this.popovers[currentindex]))){
                     
-                    //$('#scrollPos').html($(window).scrollTop());
-                    //$('#elementPos').html(JSON.stringify($(this.popovers[currentindex]).position())+JSON.stringify($(this.popovers[currentindex]).offset()));
-                    
                     $('html, body').animate({
                     scrollTop: parseInt($(this.popovers[currentindex]).position().top)
                     }, 1000);
-                    //console.log($(this.popovers[currentindex]).position());
+                    console.log('Position: '+$(this.popovers[currentindex]).position().top + ',  Offset: ' + $(this.popovers[currentindex]).offset().top);
                 }
                 
 //                var pageTop = $(window).scrollTop();
@@ -218,24 +224,16 @@
 //                    }, 1000);
 //                }
             }
+            
+            return this;
         },
         setScroll: function(scr){
             if(scr){
                 isScrolled = scr;
             }
+            
+            return this;
         },
-//        isElementInView: function (element, fullyInView) {
-//        var pageTop = $(window).scrollTop();
-//        var pageBottom = pageTop + $(window).height();
-//        var elementTop = $(element).offset().top;
-//        var elementBottom = elementTop + $(element).height();
-//
-//            if (fullyInView === true) {
-//                return ((pageTop < elementTop) && (pageBottom > elementBottom));
-//            } else {
-//                return ((elementBottom <= pageBottom) && (elementTop >= pageTop));
-//            }
-//        },
         checkScroll: function (el) {
           var top = el.offsetTop;
           var left = el.offsetLeft;
@@ -254,6 +252,39 @@
             (top + height) > window.pageYOffset &&
             (left + width) > window.pageXOffset
           );
+        },
+        setBackDrop: function(scr){
+            if(scr){
+                isBackDrop = scr;
+            }
+            
+            return this;
+        },
+        EnableBackDrop: function(addOrRemove){
+            this.jQueryValidate();
+            if(addOrRemove && isBackDrop){
+                $('body').prepend(backDrop);
+            }
+            else{
+                $('body').find('.modal-backdrop:first').remove();
+            }
+            
+            return this;
+        },
+        setElementFocus: function(index){
+            
+            var temp = $(this.popovers[index]);
+            if(index > 0 && isBackDrop){
+                $(temp).css("position",'relative');
+                $(temp).css("z-index", parseInt($('.modal-backdrop').css('z-index')) + 1);
+            }
+        },
+        unsetElementFocus : function(index){
+            var temp = $(this.popovers[index]);
+            if(index > 0 && isBackDrop){
+                $(temp).css("position",'inherit');
+                $(temp).css("z-index", parseInt($('.modal-backdrop').css('z-index')) - 10);
+            }
         }
 
                                         

@@ -27,7 +27,7 @@
 </head>
 
 <body>
-
+<!--<div class="modal-backdrop" style="opacity:0.7;"></div>-->
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -216,7 +216,7 @@
             
             var g = new T$('', customs);
             console.log(g);
-            g.loadPopup().setScroll(true);
+            g.loadPopup().setScroll(true).setBackDrop(true);
             //g.loadPopup().startTour().setScroll(true);
             
             jQuery('#startTour').click(function(e){
