@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/faizu-619/Tour-Guide#readme",
   "dependencies": {
-    "bootstrap-tour-guide": "^4.6.2"
+    "bootstrap-tour-guide": "^5.1.1"
   }
 }

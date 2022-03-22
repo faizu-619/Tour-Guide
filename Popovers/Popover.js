@@ -24,9 +24,9 @@
     };
 
     var templates = {
-        start: '<div class="popover"><div class="arrow"></div><div class="popover-header"></div><div class="popover-body"></div><div class="p-1"><a href="#" class="btn btn-info btn-sm float-right tour-next">Start</a><a href="#" class="btn btn-danger btn-sm tour-cancel">Cancel</a></div></div>',
-        mid: '<div class="popover"><div class="arrow"></div><h4 class="popover-header"></h4><div class="popover-body"></div><div class="p-1"><a href="#" class="btn btn-info btn-sm float-right tour-next">Next</a><a href="#" class="btn btn-danger btn-sm tour-cancel">Cancel</a></div></div>',
-        end: '<div class="popover"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div><div class="p-1"><a href="#" class="btn btn-info btn-sm float-right tour-start">Start Over</a><a href="#" class="btn btn-danger btn-sm tour-end">End</a></div></div>'
+        start: '<div class="popover"><div class="popover-arrow"></div><div class="popover-header"></div><div class="popover-body"></div><div class="p-1"><a href="#" class="btn btn-info btn-sm float-end tour-next">Start</a><a href="#" class="btn btn-danger btn-sm tour-cancel">Cancel</a></div></div>',
+        mid: '<div class="popover"><div class="popover-arrow"></div><h4 class="popover-header"></h4><div class="popover-body"></div><div class="p-1"><a href="#" class="btn btn-info btn-sm float-end tour-next">Next</a><a href="#" class="btn btn-danger btn-sm tour-cancel">Cancel</a></div></div>',
+        end: '<div class="popover"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div><div class="p-1"><a href="#" class="btn btn-info btn-sm float-end tour-start">Start Over</a><a href="#" class="btn btn-danger btn-sm tour-end">End</a></div></div>'
     };
 
     var currentindex = 0;
@@ -43,13 +43,13 @@
             var content = this.guideLines[index].content || 'Content';
             this.jQueryValidate();
             if (index === 0) {
-                $(this.popovers[index]).popover(options('start', content, title));
+                this.popovers[index] = { el: this.popovers[index], instance: new bootstrap.Popover(this.popovers[index], options('start', content, title)) };
             }
             else if (index === this.popovers.length - 1) {
-                $(this.popovers[index]).popover(options('end', content, title));
+                this.popovers[index] = { el: this.popovers[index], instance: new bootstrap.Popover(this.popovers[index], options('end', content, title)) };
             }
             else {
-                $(this.popovers[index]).popover(options('mid', content, title));
+                this.popovers[index] = { el: this.popovers[index], instance: new bootstrap.Popover(this.popovers[index], options('mid', content, title)) };
             }
 
 
@@ -115,7 +115,7 @@
             if (console) {
                 //console.log('Popovers : ',this.popovers);
                 //console.log('GuideLine : ',this.guideLines);
-                console.log(currentindex);
+                // console.log(currentindex);
             }
 
             return this;
@@ -125,12 +125,12 @@
 
             if (startFrom == undefined || startFrom === 0) {
 
-                $(this.popovers[0]).popover('show');
+                this.popovers[0].instance.show();
                 currentindex = 0;
                 this.EnableBackDrop(true);
             }
             else {
-                $(this.popovers[startFrom]).popover('show');
+                this.popovers[startFrom].instance.show();
                 currentindex = startFrom;
             }
             this.scrolling();
@@ -143,7 +143,7 @@
         closePopup: function () {
 
             if (currentindex > -1 && currentindex < this.popovers.length) {
-                $(this.popovers[currentindex]).popover('hide');
+                this.popovers[currentindex].instance.hide();
                 this.unsetElementFocus(currentindex);
             }
 
@@ -156,7 +156,7 @@
         },
         dismissPopovers: function () {
             this.popovers.each(function (i, e) {
-                $(e).popover('destroy');
+                e.instance.dispose();
             });
         },
         jQueryValidate: function () {
@@ -164,8 +164,8 @@
                 throw "jQuery not loaded";
             }
 
-            var bootstrap3_enabled = (typeof $().emulateTransitionEnd == 'function');
-            if (!bootstrap3_enabled) {
+            var bootstrap5_enabled = (typeof $.fn.popover == 'function');
+            if (!bootstrap5_enabled) {
                 throw "bootstrap not loaded";
             }
 
@@ -177,9 +177,9 @@
                 if (!this.checkScroll($(this.popovers[currentindex]))) {
 
                     $('html, body').animate({
-                        scrollTop: parseInt($(this.popovers[currentindex]).position().top)
+                        scrollTop: parseInt($(this.popovers[currentindex].el).position().top - 100)
                     }, 500);
-                    console.log('Position: ' + $(this.popovers[currentindex]).position().top + ',  Offset: ' + $(this.popovers[currentindex]).offset().top);
+                    // console.log('Position: ' + $(this.popovers[currentindex].el).position().top + ',  Offset: ' + $(this.popovers[currentindex].el).offset().top);
                 }
 
                 //                var pageTop = $(window).scrollTop();
@@ -274,14 +274,14 @@
         },
         setElementFocus: function (index) {
 
-            var temp = $(this.popovers[index]);
+            var temp = $(this.popovers[index].el);
             if (index > 0 && isBackDrop) {
                 $(temp).css("position", 'relative');
                 $(temp).css("z-index", parseInt($('.modal-backdrop').css('z-index')) + 1);
             }
         },
         unsetElementFocus: function (index) {
-            var temp = $(this.popovers[index]);
+            var temp = $(this.popovers[index].el);
             if (index > 0 && isBackDrop) {
                 $(temp).css("position", 'inherit');
                 $(temp).css("z-index", parseInt($('.modal-backdrop').css('z-index')) - 10);
@@ -295,7 +295,7 @@
 
         var self = this;
 
-        self.selector = selector || '[data-toggle="popover"]';
+        self.selector = selector || '[data-bs-toggle="popover"]';
         self.guideLines = guideLines || '';
         self.popovers = $(self.selector);
 
