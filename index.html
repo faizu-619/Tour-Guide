@@ -27,54 +27,39 @@
 </head>
 
 <body>
-<!--<div class="modal-backdrop" style="opacity:0.7;"></div>-->
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#" data-toggle="popover" ordinal="1">Popovers Demonstration</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#" data-toggle="popover" ordinal="2">About</a>
+    <header>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="#" data-toggle="popover" ordinal="1">Popovers Demonstration</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active" data-toggle="popover" ordinal="2">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li>
-                        <a href="#" data-toggle="popover" ordinal="3">Services</a>
+                    <li class="nav-item" data-toggle="popover" ordinal="3">
+                        <a class="nav-link" href="#">Services</a>
                     </li>
-                    <li>
-                        <a href="#" data-toggle="popover" ordinal="4">Contact</a>
-                    </li>
-                    <li>
-                        <a id="scrollPos"></a>
-                    </li>
-                    <li>
-                        <a id="elementPos"></a>
+                    <li class="nav-item" data-toggle="popover" ordinal="4">
+                        <a class="nav-link disabled" href="#">Disabled</a>
                     </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#" id="startTour">Start Tour</a>
-                    </li>
-                </ul>
+
+                <form class="form-inline mt-2 mt-md-0">
+                    <!-- <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"> -->
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="startTour">Start
+                        Tour</button>
+                </form>
             </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+        </nav>
+    </header>
 
-    <!-- Page Content -->
-    <div class="container">
-
-        <div class="row">
+    <!-- Begin page content -->
+    <main role="main" class="container">
+        <div class="row mt-2">
 
             <div class="col-md-3">
                 <p class="lead" id="custom">Shop Name</p>
@@ -88,16 +73,25 @@
             <div class="col-md-9">
 
                 <div class="thumbnail">
-                    <img class="img-responsive" src="http://placehold.it/800x300" alt="" data-toggle="popover" ordinal="8">
+                    <img class="img-responsive" src="https://via.placeholder.com/800x300" alt="" data-toggle="popover"
+                        ordinal="8">
                     <div class="caption-full">
                         <h4 class="pull-right" data-toggle="popover" ordinal="9">$24.99</h4>
                         <h4><a href="#" data-toggle="popover" ordinal="10">Product Name</a>
                         </h4>
-                        <p>See more snippets like these online store reviews at <a target="_blank" href="http://bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-                        <p >Want to make these reviews work? Check out
-                            <strong><a href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/" data-toggle="popover" ordinal="11">this building a review system tutorial</a>
-                            </strong>over at maxoffsky.com!</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                        <p>See more snippets like these online store reviews at <a target="_blank"
+                                href="http://bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
+                        <p>Want to make these reviews work? Check out
+                            <strong><a
+                                    href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/"
+                                    data-toggle="popover" ordinal="11">this building a review system tutorial</a>
+                            </strong>over at maxoffsky.com!
+                        </p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
                     </div>
                     <div class="ratings" data-toggle="popover" ordinal="12">
                         <p class="pull-right">3 reviews</p>
@@ -159,7 +153,8 @@
                             <span class="glyphicon glyphicon-star-empty"></span>
                             Anonymous
                             <span class="pull-right">15 days ago</span>
-                            <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
+                            <p>I've seen some better than this, but not at this price. I definitely recommend this item.
+                            </p>
                         </div>
                     </div>
 
@@ -169,66 +164,61 @@
 
         </div>
 
-    </div>
-    <!-- /.container -->
+        <p>Back to <a href="#startTour">Top</a>.</p>
+    </main>
 
-    <div class="container">
+    <footer class="footer">
+        <div class="container">
+            <p></p>
+            <span data-toggle="popover" ordinal="14" class="text-muted">Copyright &copy; Your Website 2022</span>
+        </div>
+    </footer>
+    <!--<div class="modal-backdrop" style="opacity:0.7;"></div>-->
 
-        <hr>
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p data-toggle="popover" ordinal="14">Copyright &copy; Your Website 2014</p>
-                </div>
-            </div>
-        </footer>
-
-    </div>
-    <!-- /.container -->
 
     <!-- jQuery -->
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap-tour-guide/Popover.js"></script>
+    <!-- <script src="Popovers/Popover.js"></script> -->
 
     <script type="application/javascript">
-        jQuery(document).ready(function(){
+        jQuery(document).ready(function () {
             var customs = [
-                {"ordinal":1, "title":"Welcome to demo.", "content":"Here is a demonstations of my framework, how it was efficient in work." },
-                {"ordinal":2, "title":"About us page", "content":"A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
-                {"ordinal":3, "title":"Our Services for you", "content":"A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
-                {"ordinal":4, "title":"Contact button", "content":"A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
-                {"ordinal":5, "title":"Categoy One", "content":"A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
-                {"ordinal":6, "title":"Categoy Two", "content":"A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
-                {"ordinal":7, "title":"Categoy Three", "content":"A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
-                {"ordinal":8, "title":"Product Image", "content":"A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
-                {"ordinal":9, "title":"Product price", "content":"A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
-                {"ordinal":10, "title":"product Name", "content":"A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
-                {"ordinal":11, "title":"Here is a link", "content":"A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
-                {"ordinal":12, "title":"Reviews for product", "content":"A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
-                {"ordinal":13, "title":"Leave a Review", "content":"A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
-                {"ordinal":14, "title":"Website Footer is here", "content":"A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
+                { "ordinal": 1, "title": "Welcome to demo.", "content": "Here is a demonstations of my framework, how it was efficient in work." },
+                { "ordinal": 2, "title": "About us page", "content": "A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
+                { "ordinal": 3, "title": "Our Services for you", "content": "A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
+                { "ordinal": 4, "title": "Contact button", "content": "A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
+                { "ordinal": 5, "title": "Categoy One", "content": "A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
+                { "ordinal": 6, "title": "Categoy Two", "content": "A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
+                { "ordinal": 7, "title": "Categoy Three", "content": "A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
+                { "ordinal": 8, "title": "Product Image", "content": "A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
+                { "ordinal": 9, "title": "Product price", "content": "A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
+                { "ordinal": 10, "title": "product Name", "content": "A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
+                { "ordinal": 11, "title": "Here is a link", "content": "A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
+                { "ordinal": 12, "title": "Reviews for product", "content": "A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
+                { "ordinal": 13, "title": "Leave a Review", "content": "A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
+                { "ordinal": 14, "title": "Website Footer is here", "content": "A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
             ];
             //
             //var t = T$('.list-group-item', customs);
             //console.log(t);
-            
+
             var g = new T$('', customs);
             console.log(g);
             g.loadPopup().setScroll(true).setBackDrop(true);
             //g.loadPopup().startTour().setScroll(true);
-            
-            jQuery('#startTour').click(function(e){
+
+            jQuery('#startTour').click(function (e) {
                 e.preventDefault();
                 g.startTour(0);
             });
             //g.greet().setLang('es').greet(true).HTMLGreeting('#custom',true);
-            
+
         });
     </script>
 
     <!-- Bootstrap Core JavaScript -->
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 

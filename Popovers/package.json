@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-tour-guide",
-  "version": "3.3.6",
+  "version": "4.6.2",
   "description": "JS Library to create easily popovers tour to your website, Based on Bootstrap Popovers to easily user guidence.",
   "main": "Popover.js",
   "scripts": {
@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/faizu-619/Tour-Guide#readme",
   "dependencies": {
-    "bootstrap": "^3.3.7",
-    "jquery": "^1.12.4"
+    "bootstrap": "^4.6.1",
+    "jquery": "^2.2.4",
+    "popper.js": "^1.14.3"
   }
 }
