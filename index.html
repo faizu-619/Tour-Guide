@@ -178,13 +178,19 @@
 
     <!-- jQuery -->
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/bootstrap-tour-guide/Popover.js"></script>
-    <!-- <script src="Popovers/Popover.js"></script> -->
+    <!-- <script src="node_modules/bootstrap-tour-guide/Popover.js"></script> -->
+    <script src="Popovers/Popover.js"></script>
 
     <script type="application/javascript">
         jQuery(document).ready(function () {
             var customs = [
-                { "ordinal": 1, "title": "Welcome to demo.", "content": "Here is a demonstations of my framework, how it was efficient in work." },
+                {
+                    "ordinal": 1,
+                    "title": "Welcome to demo.", "content": "Here is a demonstations of my framework, how it was efficient in work.",
+                    onShown: function (e) {
+                        console.log(e);
+                    }
+                },
                 { "ordinal": 2, "title": "About us page", "content": "A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
                 { "ordinal": 3, "title": "Our Services for you", "content": "A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
                 { "ordinal": 4, "title": "Contact button", "content": "A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },

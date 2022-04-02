@@ -25,7 +25,7 @@
 
     var templates = {
         start: '<div class="popover"><div class="arrow"></div><div class="popover-header"></div><div class="popover-body"></div><div class="p-1"><a href="#" class="btn btn-info btn-sm float-right tour-next">Start</a><a href="#" class="btn btn-danger btn-sm tour-cancel">Cancel</a></div></div>',
-        mid: '<div class="popover"><div class="arrow"></div><h4 class="popover-header"></h4><div class="popover-body"></div><div class="p-1"><a href="#" class="btn btn-info btn-sm float-right tour-next">Next</a><a href="#" class="btn btn-danger btn-sm tour-cancel">Cancel</a></div></div>',
+        mid: '<div class="popover"><div class="arrow"></div><h4 class="popover-header"></h4><div class="popover-body"></div><div class="p-1"><div class="btn-group float-right"><a href="#" class="btn btn-primary btn-sm tour-previous">Previous</a><a href="#" class="btn btn-primary btn-sm tour-next">Next</a></div><a href="#" class="btn btn-danger btn-sm tour-cancel">Cancel</a></div></div>',
         end: '<div class="popover"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div><div class="p-1"><a href="#" class="btn btn-info btn-sm float-right tour-start">Start Over</a><a href="#" class="btn btn-danger btn-sm tour-end">End</a></div></div>'
     };
 
@@ -41,17 +41,29 @@
         createPopup: function (index) {
             var title = this.guideLines[index].title || 'Title';
             var content = this.guideLines[index].content || 'Content';
+            var shownCallback = this.guideLines[index].onShown || null;
+            var hiddenCallback = this.guideLines[index].onHide || null;
+
             this.jQueryValidate();
+
+            var popover;
             if (index === 0) {
-                $(this.popovers[index]).popover(options('start', content, title));
+                popover = $(this.popovers[index]).popover(options('start', content, title));
             }
             else if (index === this.popovers.length - 1) {
-                $(this.popovers[index]).popover(options('end', content, title));
+                popover = $(this.popovers[index]).popover(options('end', content, title));
             }
             else {
-                $(this.popovers[index]).popover(options('mid', content, title));
+                popover = $(this.popovers[index]).popover(options('mid', content, title));
             }
 
+            if (shownCallback) {
+                $(popover).on('shown.bs.popover', shownCallback);
+            }
+
+            if (hiddenCallback) {
+                $(popover).on('hidden.bs.popover', hiddenCallback);
+            }
 
             return this;
         },
@@ -90,6 +102,12 @@
                 e.preventDefault();
                 self.closePopup();
                 self.startTour(currentindex + 1);
+            });
+
+            $(window.document).on('click', 'div.popover a.tour-previous', function (e) {
+                e.preventDefault();
+                self.closePopup();
+                self.startTour(currentindex - 1);
             });
 
             $(window.document).on('click', 'div.popover a.tour-cancel', function (e) {
@@ -264,7 +282,9 @@
         EnableBackDrop: function (addOrRemove) {
             this.jQueryValidate();
             if (addOrRemove && isBackDrop) {
-                $('body').prepend(backDrop);
+                if (!$('body').find('.modal-backdrop:first').length) {
+                    $('body').prepend(backDrop);
+                }
             }
             else {
                 $('body').find('.modal-backdrop:first').remove();
@@ -275,16 +295,16 @@
         setElementFocus: function (index) {
 
             var temp = $(this.popovers[index]);
-            if (index > 0 && isBackDrop) {
+            if (index >= 0 && isBackDrop) {
                 $(temp).css("position", 'relative');
                 $(temp).css("z-index", parseInt($('.modal-backdrop').css('z-index')) + 1);
             }
         },
         unsetElementFocus: function (index) {
             var temp = $(this.popovers[index]);
-            if (index > 0 && isBackDrop) {
-                $(temp).css("position", 'inherit');
-                $(temp).css("z-index", parseInt($('.modal-backdrop').css('z-index')) - 10);
+            if (index >= 0 && isBackDrop) {
+                $(temp).css("position", '');
+                $(temp).css("z-index", parseInt($('.modal-backdrop').css('z-index')) - 1);
             }
         }
 
