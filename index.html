@@ -189,7 +189,8 @@
                     "title": "Welcome to demo.", "content": "Here is a demonstations of my framework, how it was efficient in work.",
                     onShown: function (e) {
                         console.log(e);
-                    }
+                    }, 
+                    "placement": "bottom"
                 },
                 { "ordinal": 2, "title": "About us page", "content": "A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
                 { "ordinal": 3, "title": "Our Services for you", "content": "A large popover that displayed instantly on button click but hide after 2000 milliseconds after clicking the button once again." },
@@ -212,6 +213,10 @@
             var g = new T$('', customs);
             console.log(g);
             g.loadPopup().setScroll(true).setBackDrop(true);
+
+            g.onCancel(function (index, event) {
+                console.log(index, event);
+            });
             //g.loadPopup().startTour().setScroll(true);
 
             jQuery('#startTour').click(function (e) {

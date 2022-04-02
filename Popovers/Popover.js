@@ -4,12 +4,12 @@
         return new Tour.init(selector, guideLines);
     }
 
-    var options = function (typed, contents, titled) {
+    var options = function (typed, contents, titled, placement) {
 
         return {
             animation: true,
             html: true,
-            placement: function () {
+            placement: placement || function () {
                 var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
                 return w < 767 ? 'bottom' : 'left';
             },
@@ -37,10 +37,15 @@
 
     var backDrop = '<div class="modal-backdrop" style="opacity:0.7;"></div>';
 
+    var cancelCallback;
+    var endCallback;
+    var startCallback;
+
     Tour.prototype = {
         createPopup: function (index) {
             var title = this.guideLines[index].title || 'Title';
             var content = this.guideLines[index].content || 'Content';
+            var placement = this.guideLines[index].placement || null;
             var shownCallback = this.guideLines[index].onShown || null;
             var hiddenCallback = this.guideLines[index].onHide || null;
 
@@ -48,13 +53,13 @@
 
             var popover;
             if (index === 0) {
-                popover = $(this.popovers[index]).popover(options('start', content, title));
+                popover = $(this.popovers[index]).popover(options('start', content, title, placement));
             }
             else if (index === this.popovers.length - 1) {
-                popover = $(this.popovers[index]).popover(options('end', content, title));
+                popover = $(this.popovers[index]).popover(options('end', content, title, placement));
             }
             else {
-                popover = $(this.popovers[index]).popover(options('mid', content, title));
+                popover = $(this.popovers[index]).popover(options('mid', content, title, placement));
             }
 
             if (shownCallback) {
@@ -114,17 +119,29 @@
                 e.preventDefault();
                 self.closePopup();
                 self.EnableBackDrop(false);
+
+                if (cancelCallback) {
+                    cancelCallback(currentindex, self.popovers[currentindex]);
+                }
             });
 
             $(window.document).on('click', 'div.popover a.tour-end', function (e) {
                 e.preventDefault();
                 self.endTour();
+
+                if (endCallback) {
+                    endCallback(currentindex, self.popovers[currentindex]);
+                }
             });
 
             $(window.document).on('click', 'div.popover a.tour-start', function (e) {
                 e.preventDefault();
                 self.endTour();
                 self.startTour();
+
+                if (startCallback) {
+                    startCallback(currentindex, self.popovers[currentindex]);
+                }
             });
 
             return this;
@@ -133,7 +150,7 @@
             if (console) {
                 //console.log('Popovers : ',this.popovers);
                 //console.log('GuideLine : ',this.guideLines);
-                console.log(currentindex);
+                // console.log(currentindex);
             }
 
             return this;
@@ -306,6 +323,15 @@
                 $(temp).css("position", '');
                 $(temp).css("z-index", parseInt($('.modal-backdrop').css('z-index')) - 1);
             }
+        },
+        onCancel: function (callback) {
+            cancelCallback = callback;
+        },
+        onEnd: function (callback) {
+            endCallback = callback;
+        },
+        onStart: function (callback) {
+            startCallback = callback;
         }
 
 
