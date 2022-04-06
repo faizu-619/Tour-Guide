@@ -1,0 +1,29 @@
+{
+  "name": "bootstrap-tour-guide",
+  "version": "4.6.4",
+  "description": "JS Library to create easily popovers tour to your website, Based on Bootstrap Popovers to easily user guidence.",
+  "main": "Popover.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faizu-619/Tour-Guide.git"
+  },
+  "keywords": [
+    "tour",
+    "guide",
+    "web"
+  ],
+  "author": "Muhammad Faizan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/faizu-619/Tour-Guide/issues"
+  },
+  "homepage": "https://github.com/faizu-619/Tour-Guide#readme",
+  "dependencies": {
+    "bootstrap": "^4.6.1",
+    "jquery": "^2.2.4",
+    "popper.js": "^1.14.3"
+  }
+}
